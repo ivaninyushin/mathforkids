@@ -1,0 +1,15 @@
+@import './assets/styles/variables.scss';
+
+html, body, #root, .App, .App>div {
+  height: 100%;
+}
+
+.App {
+  display: flex;
+  text-align: left;
+  font-family: cursive;//Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10rem;
+  background-color: $background;
+  color: $dark-color;
+}
+
