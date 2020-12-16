@@ -1,6 +1,5 @@
 import React from 'react';
 import { MathProblem } from '../../math/generateMathProblem';
-import ProblemGenerator from '../problemGenerator/problemGenerator';
 import styles from './problemRenderer.module.scss';
 
 type ProblemRendererProps = {

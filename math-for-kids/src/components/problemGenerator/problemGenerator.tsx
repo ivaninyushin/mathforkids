@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   generateMathProblem,
   getProblemComplexity,
   MathProblem,
-  solveProblem,
 } from '../../math/generateMathProblem';
 import Answer from '../answer/answer';
 import ProblemRenderer from '../problemRenderer/problemRenderer';
