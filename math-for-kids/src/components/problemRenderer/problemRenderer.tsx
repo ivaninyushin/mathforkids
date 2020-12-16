@@ -9,7 +9,7 @@ type ProblemRendererProps = {
 
 const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
   return (
-    <div>
+    <>
       <span className={styles.argument1}>{problem.a1}</span>
       <span className={styles[problem.operation]}>
         {problem.operation === 'plus' ? '+' : '-'}
@@ -17,7 +17,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
 
       <span className={styles.argument2}>{problem.a2}</span>
       <span className={styles.equals}>=</span>
-    </div>
+    </>
   );
 };
 
