@@ -9,10 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./math-for-kids
     steps:
     - uses: actions/checkout@v2
 
     - name: Build SPA
+      working-directory: ${{env.working-directory}}
       run: |
         npm install
         npm run build 
@@ -25,7 +28,7 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
-          az storage blob upload-batch --account-name mathkids -d '$web' -s .
+          az storage blob upload-batch --account-name mathkids -d '$web' -s ./${{env.working-directory}}/build
     - name: logout
       run: |
         az logout
