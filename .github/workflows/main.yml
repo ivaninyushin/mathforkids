@@ -1,0 +1,34 @@
+name: Blob storage website CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./math-for-kids
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build SPA
+      working-directory: ${{env.working-directory}}
+      run: |
+        npm install
+        npm run build 
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}    
+    - name: Azure CLI script
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          az storage blob upload-batch --account-name mathkids -d '$web' -s ./${{env.working-directory}}/build
+    - name: logout
+      run: |
+        az logout
