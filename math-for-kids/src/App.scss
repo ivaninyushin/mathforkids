@@ -1,17 +1,7 @@
 @import './assets/styles/variables.scss';
 @import './assets/styles/common.scss';
 
-
-html, body, #root, .App, .App>div {
-  height: 100%;
-}
-
 .App {
   display: flex;
-  text-align: left;
-  font-family: cursive;//Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 17vw;
-  background-color: $background;
-  color: $dark-color;
 }
 

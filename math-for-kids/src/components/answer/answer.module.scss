@@ -1,10 +1,7 @@
- .answerInput{
-    width: 2ch;
-    background: none;
-    border: none;
-    font: inherit;
+ .answer{
+   display: inline-block;
+    width: 2.2ch;
     color: rgb(68, 0, 255);
-    outline-width: 0;
  }
 
 
@@ -63,6 +60,7 @@
   }
 }
 .hvrWobbleTop {
+  display: inline-block;
   color: rgb(138, 4, 4);
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
@@ -71,8 +69,8 @@
   transform-origin: 0 100%;
   -webkit-animation-name: hvrWobbleTop;
   animation-name: hvrWobbleTop;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
+  -webkit-animation-duration: 0.7s;
+  animation-duration: 0.7s;
   -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
   -webkit-animation-iteration-count: 1;

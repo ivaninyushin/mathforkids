@@ -1,0 +1,40 @@
+@import '../../assets/styles/variables.scss';
+
+
+.button {
+  min-width: 7vw;
+  min-height: 7vw;
+  font-size: 5vw;
+  text-align: center;
+  outline: none;
+  color: $light-color;
+  background-color: $dark-color;
+  border: none;
+  border-radius: 0px;
+}
+.delete {
+  background-color: $light-color;
+  color: $dark-color;
+  grid-column: span 3;
+}
+
+.enter {
+  background-color: green;
+
+  grid-column: span 7;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+.button:active {
+  background-color: $background;
+}

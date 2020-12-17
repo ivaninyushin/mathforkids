@@ -23,3 +23,15 @@
 .halfWidth{
   width: auto;
 }
+
+html, body, #root, .App, .App>div {
+  height: 100%;
+}
+
+body{
+  text-align: left;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-size: 17vw;
+  background-color: $background;
+  color: $dark-color;
+}
