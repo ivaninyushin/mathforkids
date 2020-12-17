@@ -20,9 +20,6 @@
   width: 100%;
 }
 
-.halfWidth{
-  width: auto;
-}
 
 html, body, #root, .App, .App>div {
   height: 100%;
@@ -30,8 +27,20 @@ html, body, #root, .App, .App>div {
 
 body{
   text-align: left;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
-  font-size: 17vw;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
   background-color: $background;
   color: $dark-color;
+}
+
+@media (orientation: landscape) {
+  body {
+    font-size: 35vh;
+  }
+}
+
+@media (orientation: portrait) {
+  body {
+    font-size: 17vw;
+  }
 }

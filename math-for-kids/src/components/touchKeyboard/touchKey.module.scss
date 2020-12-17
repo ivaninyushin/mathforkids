@@ -2,9 +2,6 @@
 
 
 .button {
-  min-width: 7vw;
-  min-height: 7vw;
-  font-size: 5vw;
   text-align: center;
   outline: none;
   color: $light-color;
@@ -12,6 +9,22 @@
   border: none;
   border-radius: 0px;
 }
+
+@media (orientation: landscape) {
+  .button {
+    min-width: 14vh;
+    font-size: 10vh;
+  }
+}
+
+@media (orientation: portrait) {
+  .button {
+    min-width: 7vw;
+    font-size: 5vw;
+  }
+}
+
+
 .delete {
   background-color: $light-color;
   color: $dark-color;
