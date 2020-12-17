@@ -12,14 +12,14 @@
 
 @media (orientation: landscape) {
   .button {
-    min-width: 14vh;
-    font-size: 10vh;
+    min-width: 10vh;
+    font-size: 8vh;
   }
 }
 
 @media (orientation: portrait) {
   .button {
-    min-width: 7vw;
+    min-width: 6vw;
     font-size: 5vw;
   }
 }
