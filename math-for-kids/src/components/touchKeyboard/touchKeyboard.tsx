@@ -1,6 +1,5 @@
 import React from 'react';
 import TouchKey from './touchKey';
-import styles from './touchKeyboard.module.scss';
 type TouchKeyboardProps = {
   onKey: (key: string) => void;
 };
