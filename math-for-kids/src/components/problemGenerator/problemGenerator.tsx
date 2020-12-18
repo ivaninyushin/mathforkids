@@ -9,6 +9,7 @@ import Answer from '../answer/answer';
 import ProblemRenderer from '../problemRenderer/problemRenderer';
 import TouchKeyboard from '../touchKeyboard/touchKeyboard';
 import Fireworks from './fireworks';
+import styles from './problemGenerator.module.scss';
 
 type ProblemGeneratorProps = {};
 
@@ -32,7 +33,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
     setTimeout(() => {
       setFireworks(false);
       setProblem(generateMathProblem());
-    }, getProblemComplexity(problem) * 1000 * 7);
+    }, getProblemComplexity(problem) * 1000 * 12);
   }, []);
 
   const handleAnswer = useCallback(
@@ -79,12 +80,11 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
   return fireworks ? (
     <Fireworks />
   ) : (
-    <div className={'flex center flex-column'}>
-      <div className="halfWidth">
+    <div className={styles.container}>
+      <div className={styles.mathProblem}>
         <ProblemRenderer problem={problem}></ProblemRenderer>
         <Answer answer={answer} isWrong={wrong}></Answer>
       </div>
-
       <TouchKeyboard onKey={handleTouchKey}></TouchKeyboard>
     </div>
   );

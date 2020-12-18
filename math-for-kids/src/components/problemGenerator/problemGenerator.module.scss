@@ -1,0 +1,46 @@
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  column-gap: 5px;
+  row-gap: 15px;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.mathProblem {
+  grid-area: mp;
+  align-self: flex-end;
+}
+
+
+@media (orientation: portrait) {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 14vh 14vh 14vh 14vh 14vh 15px;
+    grid-template-areas: 
+    "mp mp mp"
+    ". . ."
+    ". . ."
+    ". . ."
+    ". del del"
+    "go go go"
+    ". . .";
+  }
+}
+
+@media (orientation: landscape) {
+ 
+  .container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: auto 14vh 14vh 14vh;
+    grid-template-areas: 
+    "mp mp mp mp mp mp mp mp mp mp"
+    ". . . . . . . . . ."
+    "del del del go go go go go go go"
+    ". . . . . . . . . .";
+  }
+}
+
