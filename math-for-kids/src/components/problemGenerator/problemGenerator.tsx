@@ -10,7 +10,8 @@ import ProblemRenderer from '../problemRenderer/problemRenderer';
 import TouchKeyboard from '../touchKeyboard/touchKeyboard';
 import Fireworks from './fireworks';
 import styles from './problemGenerator.module.scss';
-import gnome from '../../assets/img/gnome.svg';
+import star from '../../assets/img/star.svg';
+import poop from '../../assets/img/poop.svg';
 
 type ProblemGeneratorProps = {};
 
@@ -58,19 +59,23 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
   );
 
   const handleTouchKey = (key: string) => {
-    if (key === 'Enter') {
-      handleAnswer(parseInt(answer), problem);
+    if (!fireworks && !wrong) {
+      if (key === 'Enter') {
+        handleAnswer(parseInt(answer), problem);
+      }
+      setAnswer((answer) => processKey(key, answer));
     }
-    setAnswer((answer) => processKey(key, answer));
   };
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        handleAnswer(parseInt(answer), problem);
-      } else {
-        setAnswer((answer) => processKey(event.key, answer));
+      if (!fireworks && !wrong) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleAnswer(parseInt(answer), problem);
+        } else {
+          setAnswer((answer) => processKey(event.key, answer));
+        }
       }
     };
 
@@ -79,7 +84,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
     return function cleanup() {
       document.removeEventListener('keydown', listener);
     };
-  }, [answer, handleAnswer, problem]);
+  }, [answer, fireworks, handleAnswer, problem, wrong]);
 
   return fireworks ? (
     <Fireworks />
@@ -89,9 +94,9 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
         <div className="flex flex-row">
           {stars.map((s, i) =>
             s === 1 ? (
-              <img src={gnome} alt="star" key={i} />
+              <img src={star} alt="star" key={i} className={styles.star} />
             ) : (
-              <img src="" alt="guano" key={i} />
+              <img src={poop} alt="poop" key={i} className={styles.star} />
             )
           )}
         </div>
