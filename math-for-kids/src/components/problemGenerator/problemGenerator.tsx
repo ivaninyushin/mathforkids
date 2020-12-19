@@ -10,6 +10,7 @@ import ProblemRenderer from '../problemRenderer/problemRenderer';
 import TouchKeyboard from '../touchKeyboard/touchKeyboard';
 import Fireworks from './fireworks';
 import styles from './problemGenerator.module.scss';
+import gnome from '../../assets/img/gnome.svg';
 
 type ProblemGeneratorProps = {};
 
@@ -27,6 +28,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
   const [fireworks, setFireworks] = useState(false);
   const [answer, setAnswer] = useState('');
   const [wrong, setWrong] = useState(false);
+  const [stars, setStars] = useState<number[]>([]);
 
   const handleCorrectAnswer = useCallback((problem) => {
     setFireworks(true);
@@ -41,9 +43,11 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
       var expectedAnswer = solveProblem(problem);
       if (expectedAnswer === answer) {
         setAnswer('');
+        setStars((s) => [...s, 1]);
         handleCorrectAnswer(problem);
       } else {
         setWrong(true);
+        setStars((s) => [...s, -1]);
         setTimeout(() => {
           setWrong(false);
           setAnswer('');
@@ -81,6 +85,17 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
     <Fireworks />
   ) : (
     <div className={styles.container}>
+      <div className={styles.stars}>
+        <div className="flex flex-row">
+          {stars.map((s, i) =>
+            s === 1 ? (
+              <img src={gnome} alt="star" key={i} />
+            ) : (
+              <img src="" alt="guano" key={i} />
+            )
+          )}
+        </div>
+      </div>
       <div className={styles.mathProblem}>
         <ProblemRenderer problem={problem}></ProblemRenderer>
         <Answer answer={answer} isWrong={wrong}></Answer>

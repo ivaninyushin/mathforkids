@@ -13,13 +13,18 @@
   align-self: flex-end;
 }
 
+.stars {
+  grid-area: stars;
+}
+
 
 @media (orientation: portrait) {
   .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 14vh 14vh 14vh 14vh 14vh 15px;
+    grid-template-rows: 4vh auto 14vh 14vh 14vh 14vh 14vh 15px;
     grid-template-areas: 
+    "stars stars stars"
     "mp mp mp"
     ". . ."
     ". . ."
@@ -35,8 +40,9 @@
   .container {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: auto 14vh 14vh 14vh;
+    grid-template-rows: 4vh auto 14vh 14vh 14vh;
     grid-template-areas: 
+    "stars stars stars stars stars stars stars stars stars stars"
     "mp mp mp mp mp mp mp mp mp mp"
     ". . . . . . . . . ."
     "del del del go go go go go go go"
