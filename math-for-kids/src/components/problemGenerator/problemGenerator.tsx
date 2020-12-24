@@ -8,10 +8,11 @@ import {
 import Answer from '../answer/answer';
 import ProblemRenderer from '../problemRenderer/problemRenderer';
 import TouchKeyboard from '../touchKeyboard/touchKeyboard';
-import Fireworks from './fireworks';
+import Fireworks from '../fireworks/fireworks';
 import styles from './problemGenerator.module.scss';
 import star from '../../assets/img/star.svg';
 import poop from '../../assets/img/poop.svg';
+import gnome from '../../assets/img/gnomes.png';
 
 type ProblemGeneratorProps = {};
 
@@ -23,6 +24,8 @@ const processKey = (key: string, answer: string) => {
   }
   return answer;
 };
+// Number of stars that equal to one gnome
+const starsToGnome = 3;
 
 const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
   const [problem, setProblem] = useState<MathProblem>(generateMathProblem());
@@ -44,7 +47,21 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
       var expectedAnswer = solveProblem(problem);
       if (expectedAnswer === answer) {
         setAnswer('');
-        setStars((s) => [...s, 1]);
+        if (stars.filter((v) => v === 1).length >= starsToGnome - 1) {
+          let index = 0;
+          let newStars: number[] = [];
+          for (var i = 0; i < stars.length; i++) {
+            if (stars[i] === 1 && index < starsToGnome - 1) {
+              index++;
+            } else {
+              newStars.push(stars[i]);
+            }
+          }
+          newStars.push(starsToGnome);
+          setStars(newStars);
+        } else {
+          setStars((s) => [...s, 1]);
+        }
         handleCorrectAnswer(problem);
       } else {
         setWrong(true);
@@ -55,7 +72,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
         }, 700);
       }
     },
-    [handleCorrectAnswer]
+    [handleCorrectAnswer, stars]
   );
 
   const handleTouchKey = (key: string) => {
@@ -95,6 +112,8 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
           {stars.map((s, i) =>
             s === 1 ? (
               <img src={star} alt="star" key={i} className={styles.star} />
+            ) : s === starsToGnome ? (
+              <img src={gnome} alt="gnome" key={i} className={styles.star} />
             ) : (
               <img src={poop} alt="poop" key={i} className={styles.star} />
             )
