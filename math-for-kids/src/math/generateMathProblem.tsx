@@ -21,19 +21,18 @@ export const solveProblem = (problem: MathProblem): number => {
 };
 
 export const generateMathProblem = (): MathProblem => {
-  const a1 = randomInt(0, 19);
+  const a1 = randomInt(0, 29);
   const a2 = randomInt(0, 19);
   const op: operation = randomInt(0, 1) === 0 ? 'plus' : 'minus';
 
   var problem: MathProblem = { a1: a1, a2: a2, operation: op };
 
   if (solveProblem(problem) < 0) return generateMathProblem();
-  if ((a1 % 10) + (a2 % 10) > 9) return generateMathProblem();
-  if (a1 === 0) return generateMathProblem();
+  if (a1 === 0 || a2 === 0) return generateMathProblem();
 
   return problem;
 };
 
 export const getProblemComplexity = (problem: MathProblem) => {
-  return (problem.a1 + problem.a2) / 40;
+  return (problem.a1 + problem.a2) / 50;
 };
