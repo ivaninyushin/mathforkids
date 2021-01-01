@@ -1,10 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  generateMathProblem,
-  getProblemComplexity,
-  MathProblem,
-  solveProblem,
-} from '../../math/generateMathProblem';
+import { generateMathProblem } from '../../tasks/math';
 import Answer from '../answer/answer';
 import ProblemRenderer from '../problemRenderer/problemRenderer';
 import TouchKeyboard from '../touchKeyboard/touchKeyboard';
@@ -13,8 +8,12 @@ import styles from './problemGenerator.module.scss';
 import star from '../../assets/img/star.svg';
 import poop from '../../assets/img/poop.svg';
 import gnome from '../../assets/img/gnomes.png';
+import { generateMusicTask } from '../../tasks/music';
+import { ITask } from '../../tasks/ITask';
 
-type ProblemGeneratorProps = {};
+type ProblemGeneratorProps = {
+  mode: 'music' | 'math';
+};
 
 const processKey = (key: string, answer: string) => {
   if (key === 'Backspace' || key === 'Delete') {
@@ -26,26 +25,30 @@ const processKey = (key: string, answer: string) => {
 };
 // Number of stars that equal to one gnome
 const starsToGnome = 3;
+const generateTask = (mode: ProblemGeneratorProps['mode']) =>
+  mode === 'math' ? generateMathProblem() : generateMusicTask();
 
-const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
-  const [problem, setProblem] = useState<MathProblem>(generateMathProblem());
+const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
+  const [problem, setProblem] = useState<ITask>(generateTask(mode));
   const [fireworks, setFireworks] = useState(false);
   const [answer, setAnswer] = useState('');
   const [wrong, setWrong] = useState(false);
   const [stars, setStars] = useState<number[]>([]);
 
-  const handleCorrectAnswer = useCallback((problem) => {
-    setFireworks(true);
-    setTimeout(() => {
-      setFireworks(false);
-      setProblem(generateMathProblem());
-    }, getProblemComplexity(problem) * 1000 * 12);
-  }, []);
+  const handleCorrectAnswer = useCallback(
+    (problem) => {
+      setFireworks(true);
+      setTimeout(() => {
+        setFireworks(false);
+        setProblem(generateTask(mode));
+      }, problem.getProblemComplexity(problem) * 1000 * 12);
+    },
+    [mode]
+  );
 
   const handleAnswer = useCallback(
-    (answer: number, problem: MathProblem) => {
-      var expectedAnswer = solveProblem(problem);
-      if (expectedAnswer === answer) {
+    (answer: number, problem: ITask) => {
+      if (problem.isCorrectAnswer(answer)) {
         setAnswer('');
         if (stars.filter((v) => v === 1).length >= starsToGnome - 1) {
           let index = 0;
@@ -124,7 +127,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = () => {
         <ProblemRenderer problem={problem}></ProblemRenderer>
         <Answer answer={answer} isWrong={wrong}></Answer>
       </div>
-      <TouchKeyboard onKey={handleTouchKey}></TouchKeyboard>
+      <TouchKeyboard onKey={handleTouchKey} mode={mode}></TouchKeyboard>
     </div>
   );
 };
