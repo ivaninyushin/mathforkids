@@ -10,19 +10,23 @@ import poop from '../../assets/img/poop.svg';
 import gnome from '../../assets/img/gnomes.png';
 import { generateMusicTask } from '../../tasks/music';
 import { ITask } from '../../tasks/ITask';
+import { allNotes, allNumbers } from '../../assets/data/arrays';
 
 type ProblemGeneratorProps = {
   mode: 'music' | 'math';
 };
 
-const processKey = (key: string, answer: string) => {
+const processKey = (key: string, answer: string, mode: 'music' | 'math') => {
   if (key === 'Backspace' || key === 'Delete') {
-    return answer.substr(0, answer.length - 1);
-  } else if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(key)) {
+    return mode === 'math' ? answer.substring(0, answer.length - 1) : '';
+  } else if (mode === 'math' && allNumbers.includes(key)) {
     return answer.length < 2 ? answer + key : answer;
+  } else if (mode === 'music' && allNotes.includes(key)) {
+    return key;
   }
   return answer;
 };
+
 // Number of stars that equal to one gnome
 const starsToGnome = 3;
 const generateTask = (mode: ProblemGeneratorProps['mode']) =>
@@ -81,9 +85,11 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
   const handleTouchKey = (key: string) => {
     if (!fireworks && !wrong) {
       if (key === 'Enter') {
-        handleAnswer(parseInt(answer), problem);
+        var value =
+          mode === 'math' ? parseInt(answer) : allNotes.indexOf(answer);
+        handleAnswer(value, problem);
       }
-      setAnswer((answer) => processKey(key, answer));
+      setAnswer((answer) => processKey(key, answer, mode));
     }
   };
 
@@ -92,9 +98,11 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
       if (!fireworks && !wrong) {
         if (event.key === 'Enter') {
           event.preventDefault();
-          handleAnswer(parseInt(answer), problem);
+          var value =
+            mode === 'math' ? parseInt(answer) : allNotes.indexOf(answer);
+          handleAnswer(value, problem);
         } else {
-          setAnswer((answer) => processKey(event.key, answer));
+          setAnswer((answer) => processKey(event.key, answer, mode));
         }
       }
     };
@@ -104,7 +112,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
     return function cleanup() {
       document.removeEventListener('keydown', listener);
     };
-  }, [answer, fireworks, handleAnswer, problem, wrong]);
+  }, [answer, fireworks, handleAnswer, problem, wrong, mode]);
 
   return fireworks ? (
     <Fireworks />

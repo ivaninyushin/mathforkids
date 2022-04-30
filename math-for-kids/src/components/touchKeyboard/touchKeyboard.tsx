@@ -1,4 +1,5 @@
 import React from 'react';
+import { allNotes, allNumbers } from '../../assets/data/arrays';
 import TouchKey from './touchKey';
 type TouchKeyboardProps = {
   onKey: (key: string) => void;
@@ -6,10 +7,7 @@ type TouchKeyboardProps = {
 };
 
 const TouchKeyboard: React.FC<TouchKeyboardProps> = ({ onKey, mode }) => {
-  const values: string[] =
-    mode === 'math'
-      ? ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-      : ['ДО', 'РЕ', 'МИ', 'ФА', 'СОЛЬ', 'ЛЯ', 'СИ'];
+  const values: string[] = mode === 'math' ? allNumbers : allNotes;
 
   return (
     <>
