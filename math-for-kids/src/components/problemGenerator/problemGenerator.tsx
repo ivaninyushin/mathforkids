@@ -5,12 +5,13 @@ import ProblemRenderer from '../problemRenderer/problemRenderer';
 import TouchKeyboard from '../touchKeyboard/touchKeyboard';
 import Fireworks from '../fireworks/fireworks';
 import styles from './problemGenerator.module.scss';
-import star from '../../assets/img/star.svg';
-import poop from '../../assets/img/poop.svg';
+import star from '../../assets/img/star.min.svg';
+import poop from '../../assets/img/poop.min.svg';
 import gnome from '../../assets/img/gnomes.png';
 import { generateMusicTask } from '../../tasks/music';
 import { ITask } from '../../tasks/ITask';
 import { allNotes, allNumbers } from '../../assets/data/arrays';
+import { Link } from 'react-router-dom';
 
 type ProblemGeneratorProps = {
   mode: 'music' | 'math';
@@ -135,7 +136,20 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
         <ProblemRenderer problem={problem}></ProblemRenderer>
         <Answer answer={answer} isWrong={wrong}></Answer>
       </div>
-      <TouchKeyboard onKey={handleTouchKey} mode={mode}></TouchKeyboard>
+      <TouchKeyboard
+        onKey={handleTouchKey}
+        mode={mode}
+        allowSubmit={answer?.length > 0 === true}
+      ></TouchKeyboard>
+      {mode === 'music' ? (
+        <Link to="/" className={styles.footerLink}>
+          Математика
+        </Link>
+      ) : (
+        <Link to="/music" className={styles.footerLink}>
+          Ноты
+        </Link>
+      )}
     </div>
   );
 };

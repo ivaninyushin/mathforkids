@@ -24,6 +24,6 @@ const randomInt = (min: number, max: number): number => {
 };
 
 export const generateMusicTask = (): MusicTask => {
-  const note = randomInt(0, 7);
+  const note = randomInt(0, 6);
   return new MusicTask(note);
 };

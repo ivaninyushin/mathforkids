@@ -6,6 +6,7 @@ type TouchKeyProps = {
   caption?: string;
   onKey: (key: string) => void;
   className?: string;
+  enabled: boolean;
 };
 
 const TouchKey: React.FC<TouchKeyProps> = ({
@@ -13,8 +14,10 @@ const TouchKey: React.FC<TouchKeyProps> = ({
   caption,
   onKey,
   className,
+  enabled,
 }) => (
   <button
+    disabled={!enabled}
     className={
       styles.button +
       ' ' +

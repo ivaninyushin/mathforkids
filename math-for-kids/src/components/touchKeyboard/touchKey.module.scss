@@ -36,6 +36,12 @@
   grid-area: go;
 }
 
+.enter:disabled, .enter:disabled:active {
+  background-color: rgb(94, 94, 94);
+  color: rgb(255, 166, 0);
+  grid-area: go;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
