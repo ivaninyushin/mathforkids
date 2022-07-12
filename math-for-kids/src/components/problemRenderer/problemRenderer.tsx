@@ -140,7 +140,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
         context.closePath();
       });
     }
-  }, [allReady, noteImage, problem, trebleClefImage]);
+  }, [allReady, bassClefImage, noteImage, problem, trebleClefImage]);
 
   if (problem instanceof MathProblem) {
     return (
