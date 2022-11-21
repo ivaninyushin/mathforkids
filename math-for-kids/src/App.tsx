@@ -7,11 +7,14 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Route path="/music" exact>
-          <ProblemGenerator mode="music" />
+        <Route path="/en/music" exact>
+          <ProblemGenerator mode="music" lang="en" />
+        </Route>
+        <Route path="/ru/music" exact>
+          <ProblemGenerator mode="music" lang="ru" />
         </Route>
         <Route path="/" exact>
-          <ProblemGenerator mode="math" />
+          <ProblemGenerator mode="math" lang="en" />
         </Route>
       </Router>
     </div>

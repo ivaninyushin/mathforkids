@@ -1,11 +1,12 @@
+import { clefVariants } from '../components/problemGenerator/clefVariants';
 import { ITask } from './ITask';
 export type note = number;
-export type clef = 'treble' | 'bass';
+
 export class MusicTask implements ITask {
   note: note;
-  clef: clef;
+  clef: clefVariants;
 
-  constructor(note: note, clef: clef) {
+  constructor(note: note, clef: clefVariants) {
     this.note = note;
     this.clef = clef;
   }
@@ -27,8 +28,7 @@ const randomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export const generateMusicTask = (): MusicTask => {
+export const generateMusicTask = (clef: clefVariants): MusicTask => {
   const note = randomInt(0, 13);
-  const clef: clef = randomInt(0, 1) === 1 ? 'bass' : 'treble';
   return new MusicTask(note, clef);
 };

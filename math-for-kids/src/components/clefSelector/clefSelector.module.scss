@@ -1,0 +1,49 @@
+
+@media (orientation: portrait) {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas: 
+    "top"
+    "clef1"
+    "break"
+    "clef2"
+    "bottom";
+  }
+}
+
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  column-gap: 5px;
+  row-gap: 15px;
+  justify-items: center;
+  align-items: stretch;
+}
+
+@media (orientation: landscape) {
+ 
+  .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas: 
+    "top"
+    "clef1"
+    "break"
+    "clef2"
+    "bottom";
+  }
+}
+
+.treble {
+  grid-area: clef1;  
+
+}
+.bass {
+  grid-area: clef2;  
+
+}
+

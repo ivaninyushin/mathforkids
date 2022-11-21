@@ -6,6 +6,7 @@ import styles from './problemRenderer.module.scss';
 import treble_clef from '../../assets/img/clefs/treble_clef.svg';
 import bass_clef from '../../assets/img/clefs/bass_clef.svg';
 import note from '../../assets/img/clefs/note.svg';
+import { clefVariants } from '../problemGenerator/clefVariants';
 
 type ProblemRendererProps = {
   problem: ITask;
@@ -60,7 +61,9 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
 
       allReady?.then(() => {
         const clefImage =
-          musicProblem.clef === 'treble' ? trebleClefImage! : bassClefImage!;
+          musicProblem.clef === clefVariants.treble
+            ? trebleClefImage!
+            : bassClefImage!;
 
         //And then draw using the recalculated height of image for destination
         context.drawImage(
@@ -70,13 +73,15 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
           clefImage.width,
           clefImage.height, // source size
           20 * scaleRatio,
-          musicProblem.clef === 'treble' ? 68 * scaleRatio : 120 * scaleRatio,
+          musicProblem.clef === clefVariants.treble
+            ? 68 * scaleRatio
+            : 120 * scaleRatio,
           clefImage.width * scaleRatio * 7.5,
           clefImage.height * scaleRatio * 7.5
         ); // destination size
 
         var noteIndex =
-          musicProblem.clef === 'treble'
+          musicProblem.clef === clefVariants.treble
             ? musicProblem.note
             : musicProblem.note - 2;
         // si (6) is in the middle of the middle line

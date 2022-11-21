@@ -1,18 +1,21 @@
 import React from 'react';
-import { allNotes, allNumbers } from '../../assets/data/arrays';
+import { allNotesRu, allNotesEn, allNumbers } from '../../assets/data/arrays';
 import TouchKey from './touchKey';
 type TouchKeyboardProps = {
   onKey: (key: string) => void;
   mode: 'math' | 'music';
   allowSubmit: boolean;
+  lang: 'en' | 'ru';
 };
 
 const TouchKeyboard: React.FC<TouchKeyboardProps> = ({
   onKey,
   mode,
   allowSubmit,
+  lang,
 }) => {
-  const values: string[] = mode === 'math' ? allNumbers : allNotes;
+  const values: string[] =
+    mode === 'math' ? allNumbers : lang === 'ru' ? allNotesRu : allNotesEn;
 
   return (
     <>

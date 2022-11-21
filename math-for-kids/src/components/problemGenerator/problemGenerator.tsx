@@ -10,14 +10,24 @@ import poop from '../../assets/img/poop.min.svg';
 import gnome from '../../assets/img/gnomes.png';
 import { generateMusicTask } from '../../tasks/music';
 import { ITask } from '../../tasks/ITask';
-import { allNotes, allNumbers } from '../../assets/data/arrays';
+import { allNotesRu, allNotesEn, allNumbers } from '../../assets/data/arrays';
 import { Link } from 'react-router-dom';
+import { clefVariants } from './clefVariants';
+import ClefSelector from '../clefSelector/clefSelector';
 
 type ProblemGeneratorProps = {
   mode: 'music' | 'math';
+  lang: 'en' | 'ru';
 };
 
-const processKey = (key: string, answer: string, mode: 'music' | 'math') => {
+const processKey = (
+  key: string,
+  answer: string,
+  mode: 'music' | 'math',
+  lang: 'en' | 'ru'
+) => {
+  let allNotes = lang === 'en' ? allNotesEn : allNotesRu;
+
   if (key === 'Backspace' || key === 'Delete') {
     return mode === 'math' ? answer.substring(0, answer.length - 1) : '';
   } else if (mode === 'math' && allNumbers.includes(key)) {
@@ -30,25 +40,36 @@ const processKey = (key: string, answer: string, mode: 'music' | 'math') => {
 
 // Number of stars that equal to one gnome
 const starsToGnome = 3;
-const generateTask = (mode: ProblemGeneratorProps['mode']) =>
-  mode === 'math' ? generateMathProblem() : generateMusicTask();
+const generateTask = (
+  mode: ProblemGeneratorProps['mode'],
+  clef: clefVariants | undefined
+) => (mode === 'math' ? generateMathProblem() : generateMusicTask(clef!));
 
-const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
-  const [problem, setProblem] = useState<ITask>(generateTask(mode));
+const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
   const [fireworks, setFireworks] = useState(false);
   const [answer, setAnswer] = useState('');
   const [wrong, setWrong] = useState(false);
   const [stars, setStars] = useState<number[]>([]);
+  const allNotes = lang === 'en' ? allNotesEn : allNotesRu;
+
+  const [clef, setClef] = useState<clefVariants | undefined>(undefined);
+  const [problem, setProblem] = useState<ITask>();
+
+  useEffect(() => {
+    if (mode === 'math' || (mode === 'music' && clef)) {
+      setProblem(generateTask(mode, clef));
+    }
+  }, [clef, mode]);
 
   const handleCorrectAnswer = useCallback(
     (problem) => {
       setFireworks(true);
       setTimeout(() => {
         setFireworks(false);
-        setProblem(generateTask(mode));
+        setProblem(generateTask(mode, clef));
       }, problem.getProblemComplexity(problem) * 1000 * 12);
     },
-    [mode]
+    [mode, clef]
   );
 
   const handleAnswer = useCallback(
@@ -88,10 +109,14 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
       if (key === 'Enter') {
         var value =
           mode === 'math' ? parseInt(answer) : allNotes.indexOf(answer);
-        handleAnswer(value, problem);
+        handleAnswer(value, problem!);
       }
-      setAnswer((answer) => processKey(key, answer, mode));
+      setAnswer((answer) => processKey(key, answer, mode, lang));
     }
+  };
+
+  const selectClef = (clef: clefVariants) => {
+    setClef(clef);
   };
 
   useEffect(() => {
@@ -101,9 +126,9 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
           event.preventDefault();
           var value =
             mode === 'math' ? parseInt(answer) : allNotes.indexOf(answer);
-          handleAnswer(value, problem);
+          handleAnswer(value, problem!);
         } else {
-          setAnswer((answer) => processKey(event.key, answer, mode));
+          setAnswer((answer) => processKey(event.key, answer, mode, lang));
         }
       }
     };
@@ -113,10 +138,12 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
     return function cleanup() {
       document.removeEventListener('keydown', listener);
     };
-  }, [answer, fireworks, handleAnswer, problem, wrong, mode]);
+  }, [answer, fireworks, handleAnswer, problem, wrong, mode, allNotes, lang]);
 
   return fireworks ? (
     <Fireworks />
+  ) : mode === 'music' && !clef ? (
+    <ClefSelector onSelected={(clef) => selectClef(clef)} />
   ) : (
     <div className={styles.container}>
       <div className={styles.stars}>
@@ -133,12 +160,13 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
         </div>
       </div>
       <div className={styles.mathProblem}>
-        <ProblemRenderer problem={problem}></ProblemRenderer>
+        {problem && <ProblemRenderer problem={problem!}></ProblemRenderer>}
         <Answer answer={answer} isWrong={wrong}></Answer>
       </div>
       <TouchKeyboard
         onKey={handleTouchKey}
         mode={mode}
+        lang={lang}
         allowSubmit={answer?.length > 0 === true}
       ></TouchKeyboard>
       {mode === 'music' ? (
@@ -146,9 +174,14 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode }) => {
           Математика
         </Link>
       ) : (
-        <Link to="/music" className={styles.footerLink}>
-          Ноты
-        </Link>
+        <>
+          <Link to="ru/music" className={styles.footerLink}>
+            Ноты До-Си
+          </Link>
+          <Link to="en/music" className={styles.footerLink2}>
+            Ноты A-G
+          </Link>
+        </>
       )}
     </div>
   );
