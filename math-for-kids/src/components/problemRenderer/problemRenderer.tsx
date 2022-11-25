@@ -64,7 +64,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
           musicProblem.clef === clefVariants.treble
             ? trebleClefImage!
             : bassClefImage!;
-
+        if (!clefImage || !noteImage) return;
         //And then draw using the recalculated height of image for destination
         context.drawImage(
           clefImage,
