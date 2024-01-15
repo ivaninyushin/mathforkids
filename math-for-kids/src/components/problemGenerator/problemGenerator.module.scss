@@ -30,6 +30,11 @@
   grid-area: link2;  
 }
 
+.footerLink3 {
+  font-size: 3vh;
+  grid-area: link3;  
+}
+
 
 @media (orientation: portrait) {
   .container {
@@ -44,7 +49,7 @@
     ". . ."
     ". del del"
     "go go go"
-    "link link link2";
+    "link link2 link3";
   }
 }
 
@@ -59,7 +64,7 @@
     "mp mp mp mp mp mp mp mp mp mp"
     ". . . . . . . . . ."
     "del del del go go go go go go go"
-    "link link link link link link2 link2 link2 link2 link2";
+    "link link link link link2 link2 link2 link3 link3 link3";
   }
 }
 

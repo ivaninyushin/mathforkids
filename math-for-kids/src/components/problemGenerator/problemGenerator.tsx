@@ -169,10 +169,14 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
         lang={lang}
         allowSubmit={answer?.length > 0 === true}
       ></TouchKeyboard>
-      {mode === 'music' ? (
+      {mode === 'music' ? (<>
         <Link to="/" className={styles.footerLink}>
           Математика
         </Link>
+        <Link to="/donate" className={styles.footerLink2}>
+          Donate/Support
+        </Link>
+      </>
       ) : (
         <>
           <Link to="ru/music" className={styles.footerLink}>
@@ -180,6 +184,9 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
           </Link>
           <Link to="en/music" className={styles.footerLink2}>
             Ноты A-G
+          </Link>
+          <Link to="/donate" className={styles.footerLink3}>
+            Donate/Support
           </Link>
         </>
       )}

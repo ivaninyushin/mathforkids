@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.scss';
 import ProblemGenerator from './components/problemGenerator/problemGenerator';
+import DonatePage from './pages/donatePage';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
         </Route>
         <Route path="/" exact>
           <ProblemGenerator mode="math" lang="en" />
+        </Route>
+        <Route path="/donate" exact>
+          <DonatePage />
         </Route>
       </Router>
     </div>
