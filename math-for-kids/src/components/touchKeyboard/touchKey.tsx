@@ -25,7 +25,7 @@ const TouchKey: React.FC<TouchKeyProps> = ({
       ' ' +
       (className ? styles[className] : '')
     }
-    onClick={(e) => onKey(value)}
+    onClick={() => onKey(value)}
   >
     {caption ?? value}
   </button>
