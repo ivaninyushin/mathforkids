@@ -15,13 +15,13 @@ const ClefSelector: React.FC<ClefSelectorProps> = ({ onSelected }) => (
       className={styles.treble}
       src={treble_clef}
       alt="Treble clef"
-      onClick={(e) => onSelected(clefVariants.treble)}
+      onClick={() => onSelected(clefVariants.treble)}
     />
     <img
       className={styles.bass}
       src={bass_clef}
       alt="Bass clef"
-      onClick={(e) => onSelected(clefVariants.bass)}
+      onClick={() => onSelected(clefVariants.bass)}
     />
   </div>
 );

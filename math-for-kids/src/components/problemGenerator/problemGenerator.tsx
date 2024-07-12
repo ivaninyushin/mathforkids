@@ -5,8 +5,8 @@ import ProblemRenderer from '../problemRenderer/problemRenderer';
 import TouchKeyboard from '../touchKeyboard/touchKeyboard';
 import Fireworks from '../fireworks/fireworks';
 import styles from './problemGenerator.module.scss';
-import star from '../../assets/img/star.min.svg';
-import poop from '../../assets/img/poop.min.svg';
+import Star from '../../assets/img/star.min.svg?react';
+import Poop from '../../assets/img/poop.min.svg?react';
 import gnome from '../../assets/img/gnomes.png';
 import { generateMusicTask } from '../../tasks/music';
 import { ITask } from '../../tasks/ITask';
@@ -26,7 +26,7 @@ const processKey = (
   mode: 'music' | 'math',
   lang: 'en' | 'ru'
 ) => {
-  let allNotes = lang === 'en' ? allNotesEn : allNotesRu;
+  const allNotes = lang === 'en' ? allNotesEn : allNotesRu;
 
   if (key === 'Backspace' || key === 'Delete') {
     return mode === 'math' ? answer.substring(0, answer.length - 1) : '';
@@ -62,12 +62,12 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
   }, [clef, mode]);
 
   const handleCorrectAnswer = useCallback(
-    (problem) => {
+    (problem: ITask) => {
       setFireworks(true);
       setTimeout(() => {
         setFireworks(false);
         setProblem(generateTask(mode, clef));
-      }, problem.getProblemComplexity(problem) * 1000 * 12);
+      }, problem.getProblemComplexity() * 1000 * 12);
     },
     [mode, clef]
   );
@@ -78,8 +78,8 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
         setAnswer('');
         if (stars.filter((v) => v === 1).length >= starsToGnome - 1) {
           let index = 0;
-          let newStars: number[] = [];
-          for (var i = 0; i < stars.length; i++) {
+          const newStars: number[] = [];
+          for (let i = 0; i < stars.length; i++) {
             if (stars[i] === 1 && index < starsToGnome - 1) {
               index++;
             } else {
@@ -107,7 +107,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
   const handleTouchKey = (key: string) => {
     if (!fireworks && !wrong) {
       if (key === 'Enter') {
-        var value =
+        const value =
           mode === 'math' ? parseInt(answer) : allNotes.indexOf(answer);
         handleAnswer(value, problem!);
       }
@@ -124,7 +124,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
       if (!fireworks && !wrong) {
         if (event.key === 'Enter') {
           event.preventDefault();
-          var value =
+          const value =
             mode === 'math' ? parseInt(answer) : allNotes.indexOf(answer);
           handleAnswer(value, problem!);
         } else {
@@ -150,11 +150,11 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
         <div className="flex flex-row">
           {stars.map((s, i) =>
             s === 1 ? (
-              <img src={star} alt="star" key={i} className={styles.star} />
+              <Star key={i} className={styles.star} />
             ) : s === starsToGnome ? (
               <img src={gnome} alt="gnome" key={i} className={styles.star} />
             ) : (
-              <img src={poop} alt="poop" key={i} className={styles.star} />
+              <Poop key={i} className={styles.star} />
             )
           )}
         </div>

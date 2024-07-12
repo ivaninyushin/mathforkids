@@ -21,25 +21,25 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
   const [allReady, setAllReady] = useState<Promise<unknown>>();
 
   useEffect(() => {
-    let imgTreble = new Image();
+    const imgTreble = new Image();
     imgTreble.src = treble_clef;
-    var trebleReady = new Promise(function (resolve) {
+    const trebleReady = new Promise(function (resolve) {
       imgTreble.addEventListener('load', resolve, false);
     });
 
-    let imgBass = new Image();
+    const imgBass = new Image();
     imgBass.src = bass_clef;
-    var bassReady = new Promise(function (resolve) {
+    const bassReady = new Promise(function (resolve) {
       imgBass.addEventListener('load', resolve, false);
     });
 
-    let imgNote = new Image();
+    const imgNote = new Image();
     imgNote.src = note;
-    var noteReady = new Promise(function (resolve) {
+    const noteReady = new Promise(function (resolve) {
       imgNote.addEventListener('load', resolve, false);
     });
 
-    let allReady = Promise.all([trebleReady, bassReady, noteReady]).then(() => {
+    const allReady = Promise.all([trebleReady, bassReady, noteReady]).then(() => {
       setTrebleClefImage(imgTreble);
       setBassClefImage(imgBass);
       setNoteImage(imgNote);
@@ -80,12 +80,12 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
           clefImage.height * scaleRatio * 7.5
         ); // destination size
 
-        var noteIndex =
+        const noteIndex =
           musicProblem.clef === clefVariants.treble
             ? musicProblem.note
             : musicProblem.note - 2;
         // si (6) is in the middle of the middle line
-        let noteYCoord =
+        const noteYCoord =
           (((6 - noteIndex) * 45) / 2 + 120 + 45 * 1.5) * scaleRatio;
         context.drawImage(
           noteImage!,
@@ -102,7 +102,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
         //Draw additional lines for the note, if needed
         if (noteIndex < 1) {
           context.beginPath();
-          let y = (120 + 5 * 45) * scaleRatio;
+          const y = (120 + 5 * 45) * scaleRatio;
           context.moveTo((300 - 50) * scaleRatio, y);
           context.lineTo((300 + 120) * scaleRatio, y);
           context.stroke();
@@ -111,7 +111,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
 
         if (noteIndex < -1) {
           context.beginPath();
-          let y = (120 + 6 * 45) * scaleRatio;
+          const y = (120 + 6 * 45) * scaleRatio;
           context.moveTo((300 - 50) * scaleRatio, y);
           context.lineTo((300 + 120) * scaleRatio, y);
           context.stroke();
@@ -120,7 +120,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
 
         if (noteIndex > 11) {
           context.beginPath();
-          let y = (120 - 1 * 45) * scaleRatio;
+          const y = (120 - 1 * 45) * scaleRatio;
           context.moveTo((300 - 50) * scaleRatio, y);
           context.lineTo((300 + 120) * scaleRatio, y);
           context.stroke();
@@ -128,7 +128,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
         }
         if (noteIndex > 13) {
           context.beginPath();
-          let y = (120 - 2 * 45) * scaleRatio;
+          const y = (120 - 2 * 45) * scaleRatio;
           context.moveTo((300 - 50) * scaleRatio, y);
           context.lineTo((300 + 120) * scaleRatio, y);
           context.stroke();
@@ -137,7 +137,7 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
 
         context.beginPath();
         for (let i = 0; i < 5; i++) {
-          let y = (120 + i * 45) * scaleRatio;
+          const y = (120 + i * 45) * scaleRatio;
           context.moveTo(0, y);
           context.lineTo(canvas.width, y);
           context.stroke();
@@ -152,7 +152,10 @@ const ProblemRenderer: React.FC<ProblemRendererProps> = ({ problem }) => {
       <>
         <span className={styles.argument1}>{problem.a1}</span>
         <span className={styles[problem.operation]}>
-          {problem.operation === 'plus' ? '+' : '-'}
+          {problem.operation === 'plus' ? '+' 
+            : problem.operation === 'minus' ? '-'
+            : problem.operation === 'multiply' ? '×'
+            : '÷'}
         </span>
 
         <span className={styles.argument2}>{problem.a2}</span>

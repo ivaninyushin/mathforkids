@@ -1,28 +1,19 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import './App.scss';
 import ProblemGenerator from './components/problemGenerator/problemGenerator';
 import DonatePage from './pages/donatePage';
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Route path="/en/music" exact>
-          <ProblemGenerator mode="music" lang="en" />
-        </Route>
-        <Route path="/ru/music" exact>
-          <ProblemGenerator mode="music" lang="ru" />
-        </Route>
-        <Route path="/" exact>
-          <ProblemGenerator mode="math" lang="en" />
-        </Route>
-        <Route path="/donate" exact>
-          <DonatePage />
-        </Route>
-      </Router>
-    </div>
-  );
+  const routesJSX = (
+    <>
+      <Route path="/" element={ <ProblemGenerator mode="math" lang="en" />} />
+      <Route path="/en/music" element={<ProblemGenerator mode="music" lang="en" />} />
+      <Route path="/ru/music" element={<ProblemGenerator mode="music" lang="ru" />} />
+      <Route path="/donate" element={ <DonatePage />} />
+    </>)
+  const routes = createRoutesFromElements(routesJSX);
+  const router = createBrowserRouter(routes);
+  return <RouterProvider router={router}/>
 }
 
 export default App;
