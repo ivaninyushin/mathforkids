@@ -1,9 +1,10 @@
 import React from 'react';
 import { allNotesRu, allNotesEn, allNumbers } from '../../assets/data/arrays';
 import TouchKey from './touchKey';
+import { OpMode } from '../../tasks/ITask';
 type TouchKeyboardProps = {
   onKey: (key: string) => void;
-  mode: 'math' | 'music';
+  mode: OpMode;
   allowSubmit: boolean;
   lang: 'en' | 'ru';
 };
@@ -15,7 +16,7 @@ const TouchKeyboard: React.FC<TouchKeyboardProps> = ({
   lang,
 }) => {
   const values: string[] =
-    mode === 'math' ? allNumbers : lang === 'ru' ? allNotesRu : allNotesEn;
+    mode !== 'music' ? allNumbers : lang === 'ru' ? allNotesRu : allNotesEn;
 
   return (
     <>

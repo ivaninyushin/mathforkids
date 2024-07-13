@@ -1,4 +1,4 @@
-import { ITask } from './ITask';
+import { ITask, OpMode } from './ITask';
 export type operation = 'plus' | 'minus' | 'multiply' | 'divide';
 
 export class MathProblem implements ITask {
@@ -11,10 +11,10 @@ export class MathProblem implements ITask {
     this.operation = operation;
   }
   solveProblem = (): number =>
-    this.operation === 'plus' ? this.a1 + this.a2 
+    this.operation === 'plus' ? this.a1 + this.a2
       : this.operation === 'minus' ? this.a1 - this.a2
-      : this.operation === 'multiply' ? this.a1 * this.a2
-      : this.a1 / this.a2;
+        : this.operation === 'multiply' ? this.a1 * this.a2
+          : this.a1 / this.a2;
   getProblemComplexity = () => {
     return (this.a1 + this.a2) / 100;
   };
@@ -31,24 +31,30 @@ const randomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-export const generateMathProblem = (): MathProblem => {
-  const opCode = randomInt(0, 3);
-  const op: operation = opCode === 0 ? 'plus' : opCode === 1 ? 'minus': opCode === 2 ? 'multiply' : 'divide';
+export const generateMathProblem = (mode: OpMode): MathProblem => {
+
+  let opCode = randomInt(0, 1);
+  if (mode === 'math2') {
+    opCode = 2;
+  }
+  if (mode === 'math3') {
+    opCode = 3;
+  }
+  const op: operation = opCode === 0 ? 'plus' : opCode === 1 ? 'minus'
+    : opCode === 2 ? 'multiply' : 'divide';
   let a1 = randomInt(1, 49);
   let a2 = randomInt(1, 39);
-  if(op == 'multiply') {
+  if (op == 'multiply') {
     a1 = randomInt(1, 9);
     a2 = randomInt(1, 9);
   }
-  if(op == 'divide') {
+  if (op == 'divide') {
     a1 = randomInt(1, 9);
     a2 = randomInt(1, 9);
     a1 = a1 * a2;
   }
 
   const problem: MathProblem = new MathProblem(a1, a2, op);
-
-  if (problem.solveProblem() < 0) return generateMathProblem();
-  
+  if (problem.solveProblem() < 0) return generateMathProblem(mode);
   return problem;
 };
