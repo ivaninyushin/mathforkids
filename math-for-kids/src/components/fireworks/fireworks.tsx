@@ -1,9 +1,6 @@
-import React from 'react';
-import './fireworks.scss';
+import "./fireworks.scss";
 
-type FireworksProps = {};
-
-const Fireworks: React.FC<FireworksProps> = () => (
+const Fireworks = () => (
   <div className="fireworksPlaceholder">
     <div className="pyro">
       <div className="before"></div>
