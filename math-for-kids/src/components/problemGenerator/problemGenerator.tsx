@@ -145,7 +145,7 @@ const ProblemGenerator: React.FC<ProblemGeneratorProps> = ({ mode, lang }) => {
     <ClefSelector onSelected={(clef) => selectClef(clef)} />
   ) : (
     <>
-      <div className="flex flex-col justify-start items-center w-9/10 mx-auto h-screen">
+      <div className="flex flex-col justify-start items-center w-9/10 mx-auto h-full">
         <div className="flex flex-row items-start justify-start h-1/10 w-full">
           {stars.map((s, i) =>
             s === 1 ? (
