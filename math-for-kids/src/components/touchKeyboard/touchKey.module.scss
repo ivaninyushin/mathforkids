@@ -1,5 +1,4 @@
-@import '../../assets/styles/variables.scss';
-
+@use "../../assets/styles/variables.scss" as *;
 
 .button {
   text-align: center;
@@ -8,7 +7,9 @@
   background-color: $dark-color;
   border: none;
   border-radius: 0px;
-  padding: 0
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 @media (orientation: landscape) {
@@ -23,7 +24,6 @@
   }
 }
 
-
 .delete {
   background-color: $light-color;
   color: $dark-color;
@@ -36,7 +36,8 @@
   grid-area: go;
 }
 
-.enter:disabled, .enter:disabled:active {
+.enter:disabled,
+.enter:disabled:active {
   background-color: rgb(94, 94, 94);
   color: rgb(255, 166, 0);
   grid-area: go;
@@ -44,14 +45,13 @@
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
-
 
 .button:active {
   background-color: $background;

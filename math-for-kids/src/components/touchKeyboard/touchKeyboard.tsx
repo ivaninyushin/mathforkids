@@ -1,12 +1,13 @@
-import React from 'react';
-import { allNotesRu, allNotesEn, allNumbers } from '../../assets/data/arrays';
-import TouchKey from './touchKey';
-import { OpMode } from '../../tasks/ITask';
+import React from "react";
+import { allNotesEn, allNotesRu, allNumbers } from "../../assets/data/arrays";
+import { OpMode } from "../../tasks/ITask";
+import TouchKey from "./touchKey";
+import styles from "./touchKeyboard.module.scss";
 type TouchKeyboardProps = {
   onKey: (key: string) => void;
   mode: OpMode;
   allowSubmit: boolean;
-  lang: 'en' | 'ru';
+  lang: "en" | "ru";
 };
 
 const TouchKeyboard: React.FC<TouchKeyboardProps> = ({
@@ -16,29 +17,31 @@ const TouchKeyboard: React.FC<TouchKeyboardProps> = ({
   lang,
 }) => {
   const values: string[] =
-    mode !== 'music' ? allNumbers : lang === 'ru' ? allNotesRu : allNotesEn;
+    mode !== "music" ? allNumbers : lang === "ru" ? allNotesRu : allNotesEn;
 
   return (
-    <>
+    <div
+      className={mode === "music" ? styles.containerSmall : styles.container}
+    >
       {values.map((v) => (
         <TouchKey value={v} onKey={onKey} key={v} enabled />
       ))}
 
       <TouchKey
-        value={'Delete'}
+        value={"Delete"}
         caption="⌫"
         onKey={onKey}
         className="delete"
         enabled
       />
       <TouchKey
-        value={'Enter'}
+        value={"Enter"}
         caption="▶"
         onKey={onKey}
         className="enter"
         enabled={allowSubmit}
       />
-    </>
+    </div>
   );
 };
 

@@ -1,3 +1,4 @@
+@use "../../assets/styles/variables.scss" as *;
 .flex {
   display: flex;
 }
@@ -15,20 +16,23 @@
   flex: 0.08;
 }
 .center {
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
-
-html, body, #root, .App, .App>div {
+html,
+body,
+#root,
+.App,
+.App > div {
   height: 100%;
 }
 
-body{
+body {
   text-align: left;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
   background-color: $background;
   color: $dark-color;
 }

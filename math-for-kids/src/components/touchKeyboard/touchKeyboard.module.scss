@@ -1,0 +1,46 @@
+.container,
+.containerSmall {
+  width: 100%;
+  column-gap: 5px;
+  row-gap: 15px;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+@media (orientation: portrait) {
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 14vh 14vh 14vh 14vh 14vh;
+    grid-template-areas:
+      ". . ."
+      ". . ."
+      ". . ."
+      ". del del"
+      "go go go";
+  }
+}
+
+@media (orientation: portrait) {
+  .containerSmall {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 14vh 14vh 14vh;
+    grid-template-areas:
+      ". . . ."
+      ". . . ."
+      "del go go go";
+  }
+}
+
+@media (orientation: landscape) {
+  .container,
+  .containerSmall {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 14vh 14vh;
+    grid-template-areas:
+      ". . . . . . . . . ."
+      "del del del go go go go go go go";
+  }
+}

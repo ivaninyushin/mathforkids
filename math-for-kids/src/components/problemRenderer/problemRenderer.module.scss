@@ -1,15 +1,13 @@
-@import '../../assets/styles/variables.scss';
-.minus{
+@use "../../assets/styles/variables.scss" as *;
+.minus {
   color: #003cff;
 }
 
-.plus{
-  color:#f32501;
+.plus {
+  color: #f32501;
 }
 
-.equals{
-  color:#f38201
-}
+
 
 .note {
   width: 20vw;
