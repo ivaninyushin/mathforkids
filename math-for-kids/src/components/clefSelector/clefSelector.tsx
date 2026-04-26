@@ -24,5 +24,5 @@ const ClefSelector: React.FC<ClefSelectorProps> = ({ onSelected }) => (
     />
   </div>
 );
-
+/* Exports */
 export default ClefSelector;
